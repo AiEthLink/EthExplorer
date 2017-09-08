@@ -1,0 +1,124 @@
+<div id="whisper" class="container" style="padding-top: 50px; background:#f0f0f0">
+
+	<font class="text-gray" size="5">TOKEN </font>
+	<font class="text-gray" size="3">{{tokenname}}</font>
+
+	<hr/>
+
+	<div <h5 style="text-align:left;">TokenTracker Summary</h5>
+	</div>
+
+	<div class="container" style="background:white; width:99%">
+		<div class="container" align="left" style="float:left; width:50%">
+			<hr/>
+			<font size="2">Total Supply: {{tokentotalsupply}}</font>
+			<hr/>
+			<font size="2">Value per Token: $8.2545 @ 0.025510 Eth</font>
+			<hr/>
+			<font size="2">Token Holders: {{holdersnum}}</font>
+			<hr/>
+		</div>
+
+		<div class="container" align="left" style="float:right; width:50%">
+			<hr/>
+			<font size="2">Contract Address: {{tokenaddress}}</font>
+			<hr/>
+			<font size="2">Token Decimals: {{tokendecimals}}</font>
+			<hr/>
+			<font size="2">No.Of.Transfers: {{transfersnum}}</font>
+			<hr/>
+		</div>
+
+	</div>
+
+	<div class="container" align="left" style="float:left; padding-top: 10px;">
+		<ul class="nav nav-tabs" ng-init="showGrid=1">
+			<li ng-class="activeTransfers" style="border-style:dotted; border-width:1px; border-color:#000">
+				<li ng-class="activeTransfers">
+					<a ng-click="showGrid=1">Token Transfers</a>
+				</li>
+				<li ng-class="activeHolders" ng-show="true">
+					<a ng-click="showGrid=2">Token Holders</a>
+				</li>
+				<li ng-class="activeContract">
+					<a ng-click="showGrid=3">Read Contract</a>
+				</li>
+		</ul>
+		<div ng-if="showGrid == 1" class="gridStyle" ng-grid="gridOptions">
+			<table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:5px;table-layout:fixed">
+				<tbody>
+					<tr>
+						<th class="th-blockhash">TxHash</th>
+						<th class="th-blocktime">Age</th>
+						<th class="th-address">From</th>
+						<th class="th-address">To</th>
+						<th class="th-value">Quantity</th>
+					</tr>
+					<tr data-ng-repeat="tx in transactions">
+						<td style="overflow: hidden;text-overflow:ellipsis">
+							<a href="./#/transaction/{{tx.hash}}">
+										<span class="small ng-binding">{{tx.hash}}
+									</span>
+								</a>
+						</td>
+						<td style="overflow: hidden;text-overflow:ellipsis">
+							<span class="small ng-binding">10 secs ago
+									</span></td>
+						<td style="overflow: hidden;text-overflow:ellipsis">
+							<a href="./#/tokenaccount/{{tx.from}}">
+								<span class="small ng-binding">{{tx.from}}
+							</span></a></td>
+						<td style="overflow: hidden;text-overflow:ellipsis">
+							<a href="./#/tokenaccount/{{tx.to}}">
+								<span class="small ng-binding">{{tx.to}}
+									</span></a></td>
+						<td style="overflow: hidden;text-overflow:ellipsis">
+							<span class="small ng-binding">{{tx.value | number}}
+									</span></td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+		<div ng-if="showGrid == 2" class="gridStyle" ng-grid="gridOptions2">
+			<table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:5px;table-layout:fixed">
+				<tbody>
+					<tr>
+						<th class="th-blocknum">Rank</th>
+						<th class="th-address">Address</th>
+						<th class="th-value">Quantity</th>
+						<th class="th-value">Percentage</th>
+					</tr>
+					<tr data-ng-repeat="info in holders">
+						<td style="overflow: hidden;text-overflow:ellipsis">{{$index+1}}</td>
+						<td style="overflow: hidden;text-overflow:ellipsis">
+							<a href="./#/tokenaccount/{{info.address}}">
+								<span class="small ng-binding">{{info.address}}
+									</span></a></td>
+						<td style="overflow: hidden;text-overflow:ellipsis">{{info.quantity}}</td>
+						<td style="overflow: hidden;text-overflow:ellipsis">{{info.percentage}}%</td>
+					</tr>
+
+				</tbody>
+
+			</table>
+		</div>
+		<div ng-if="showGrid == 3" class="gridStyle" ng-grid="gridOptions3">
+
+			<font size="2">Read Contract Information</font>
+			<table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:5px;table-layout:fixed">
+				<tbody>
+					<tr>
+						<!-- <th>Rank</th> -->
+						<!-- <th>Item</th> -->
+					</tr>
+					<tr data-ng-repeat="item in abi">
+						<td style="overflow: hidden;text-overflow:ellipsis">{{$index+1}}.{{item.name}}</td>
+						<!-- <td style="overflow: hidden;text-overflow:ellipsis">{{item.name}}</td> -->
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

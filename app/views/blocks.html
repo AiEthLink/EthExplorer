@@ -1,0 +1,55 @@
+<div id="blocklist" class="container" style="padding-top: 50px; background:#f0f0f0">
+
+	<h3 class="text-gray" style="text-align:left;">Block Explorer</h3>
+
+	<div class="container">
+		<div style="width:100%;clear:both">
+			<form name="btn-first" ng-controller="mainCtrl" ng-submit="firstBlocks()" style="float:left;margin-left:3px">
+				<button type="submit" class="btn btn-primary">First</button>
+			</form>
+
+			<form name="btn-previous" ng-controller="mainCtrl" ng-submit="peviousBlocks()" style="float:left;margin-left:3px">
+				<button type="submit" class="btn btn-info">&laquo; Pevious</button>
+			</form>
+
+			<form name="btn-next" ng-controller="mainCtrl" ng-submit="nextBlocks()" style="float:left;margin-left:3px">
+				<button type="submit" class="btn btn-info">Next &raquo;</button>
+			</form>
+
+			<form name="btn-last" ng-controller="mainCtrl" ng-submit="lastBlocks()" style="float:left;margin-left:3px">
+				<button type="submit" class="btn btn-warning">Last</button>
+			</form>
+		</div>
+
+		<div style="float:left;">
+			<h4 style="text-align:left; margin-left:30px">
+				<a href="/#/block/{{blockNum}}">Latest Block: {{blockNum}}</a>
+			</h4>
+		</div>
+
+		<div style="float:right;">
+			<h5 style="text-align:right; margin-right:30px">Static Peers: {{peers}}
+			</h5>
+		</div>
+	</div>
+	<div style="clear:both;"></div>
+
+	<table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:5px;width:100%">
+		<tbody>
+			<tr>
+				<th>Block #</th>
+				<th>Tx #</th>
+				<th>Size</th>
+				<th>Timestamp</th>
+			</tr>
+			<tr data-ng-repeat="i in blocks">
+				<td><a href="/#/block/{{i.number}}">{{i.number}}</a></td>
+				<td>{{i.transactions.length}}</td>
+				<td>{{i.size}}</td>
+				<td>{{i.timestamp}}</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+</div>

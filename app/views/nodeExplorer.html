@@ -1,0 +1,61 @@
+<div id="nodeexplorer" class="container" style="padding-top: 50px; background:#f0f0f0">
+
+	<h3 class="text-gray" style="text-align:left;">Node Explorer</h3>
+
+	<div>
+		<font size="3">Local node version: </font>
+		<font size="3" color="#FF0000">{{versions.node}}</font>
+		<font size="3">Supported eth protocol version: </font>
+		<font size="3" color="#FF0000">{{versions.ethereum}}</font>
+		<font size="3">Network ID: </font>
+		<font size="3" color="#FF0000">{{versions.network}}</font>
+		<font size="3">Swarm: </font>
+		<font size="3" color="#FF0000">{{versions.swarm}}</font>
+		<font size="3">Whisper: </font>
+		<font size="3" color="#FF0000">{{versions.whisper}}</font>
+	</div>
+
+		<h4 style="text-align:left;">BootNode：</h4>
+		<table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:5px;table-layout:fixed">
+			<tbody>
+				<tr>
+					<th>Address(IP)</th>
+					<th>country/province</th>
+					<th>city/district</th>
+					<th>nodeinfo</th>
+					<!-- <th>Timestamp</th> -->
+				</tr>
+				<tr data-ng-repeat="info in bootnodeipinfos">
+					<td style="overflow: hidden;text-overflow:ellipsis">{{info.ip}}</td>
+					<td style="overflow: hidden;text-overflow:ellipsis">{{info.country}}/{{info.province}}</td>
+					<td style="overflow: hidden;text-overflow:ellipsis">{{info.city}}/{{info.district}}</td>
+					<td style="overflow: hidden;text-overflow:ellipsis">{{info.info}}</td>
+				</tr>
+
+			</tbody>
+		</table>
+
+		<div style="float:left; margin-top:20px">
+			<h4 style="text-align:left">StaticNode：</h4>
+		</div>
+
+		<table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:5px;table-layout:fixed">
+			<tbody>
+				<tr>
+					<th>Address(IP)</th>
+					<th>country/province</th>
+					<th>city/district</th>
+					<th>nodeinfo</th>
+					<!-- <th>Timestamp</th> -->
+				</tr>
+				<tr data-ng-repeat="info in staticnodeipinfos">
+					<td style="overflow: hidden;text-overflow:ellipsis">{{info.ip}}</td>
+					<td style="overflow: hidden;text-overflow:ellipsis">{{info.country}}/{{info.province}}</td>
+					<td style="overflow: hidden;text-overflow:ellipsis">{{info.city}}/{{info.district}}</td>
+					<td style="overflow: hidden;text-overflow:ellipsis">{{info.info}}</td>
+				</tr>
+
+			</tbody>
+		</table>
+
+</div>

@@ -1,0 +1,15 @@
+<div id="swarm" class="container" style="padding-top: 50px; background:#f0f0f0">
+
+	<h3 class="text-gray" style="text-align:left;">Swarm</h3>
+
+	<div id="navbar" class="navbar-collapse collapse" style="float:left">
+		<ul class="nav navbar-nav">
+			<form ng-controller="swarmCtrl" ng-submit="processRequest()" class="navbar-form navbar-right">
+				<div class="form-group">
+					<input type="text" placeholder="Content-Type: text/plain" name="requestType" required ng-model="ethRequest" class="form-control"><br>
+				</div>
+				<button type="submit" class="btn btn-success">put</button></form>
+		</ul>
+	</div>
+
+</div>

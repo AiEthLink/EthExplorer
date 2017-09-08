@@ -1,0 +1,160 @@
+<div id="blocklist" class="container" style="padding-top:50px; background:#f0f0f0">
+
+	<h1 class="text-gray" style="text-align:left;">Welcome to the ETH Explorer!</h1>
+
+	<div class="row" style="margin:5px;background:white">
+		<div class="col-xs-4 stat-holder">
+			<div class="big-info bestblock text-info">
+				<div class="pull-left icon-full-width"><i class="icon-block"></i></div>
+				<div class="big-details-holder"><span class="small-title">最新区块</span><span class="big-details ng-binding">#{{blockNum}}</span></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="col-xs-4 stat-holder">
+			<div class="big-info uncleCount text-info">
+				<div class="pull-left icon-full-width"><i class="icon-uncle"></i></div>
+				<div class="big-details-holder"><span class="small-title">叔伯块&nbsp;<span class="small">(current / last {{maxBlocks}})</span></span><span class="big-details ng-binding">{{uncleCount}}</span></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="col-xs-4 stat-holder">
+			<div class="big-info blocktime text-success">
+				<div class="pull-left icon-full-width"><i class="icon-time"></i></div>
+				<div class="big-details-holder"><span class="small-title">上个区块</span><span class="big-details ng-binding">{{lastBlockTime}} ago</span></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="row" style="margin:5px;background:white">
+		<div class="col-xs-4 stat-holder">
+			<div class="big-info avgblocktime text-orange">
+				<div class="pull-left icon-full-width"><i class="icon-gas"></i></div>
+				<div class="big-details-holder"><span class="small-title">平均区块时间</span><span class="big-details ng-binding">{{averageBlockTime}}</span></div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="col-xs-4 stat-holder">
+			<div class="big-info difficulty text-orange">
+				<div class="pull-left icon-full-width"><i class="icon-hashrate"></i></div>
+				<div class="big-details-holder"><span class="small-title">哈希速率</span><span class="big-details ng-binding">{{hashrate}}<span class="small-hash"> TH/s</span></span>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="col-xs-4 stat-holder">
+			<div class="big-info difficulty text-danger">
+				<div class="pull-left icon-full-width"><i class="icon-difficulty"></i></div>
+				<div class="big-details-holder"><span class="small-title">难度</span><span class="big-details"><span class="small-hash ng-binding">{{totalDifficulty}}</span></span>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="row" style="margin:5px;background:white">
+		<div class="row second-row">
+			<div class="col-xs-4 stat-holder box">
+				<div class="active-nodes text-success"><i class="icon-node"></i><span class="small-title">活跃节点</span><span class="small-value ng-binding">{{peerCount}}/18</span></div>
+			</div>
+			<div class="col-xs-4 stat-holder box">
+				<div class="gasprice text-info"><i class="icon-gasprice"></i><span class="small-title">GAS 价格</span><span class="small-value ng-binding">{{gasPrice}} wei</span></div>
+			</div>
+			<div class="col-xs-4 stat-holder box">
+				<div class="gasprice text-info"><i class="icon-gasprice"></i><span class="small-title">GAS 上限</span><span class="small-value ng-binding">{{gasLimit}} gas</span></div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="row" style="margin:5px;background:white">
+		<div class="row second-row">
+			<div class="col-xs-4 stat-holder box">
+				<div class="page-latency text-success"><i class="icon-clock"></i><span class="small-title">页面延迟</span><span class="small-value ng-binding">40 ms</span></div>
+			</div>
+			<div class="col-xs-4 stat-holder box">
+				<div class="uptime text-success"><i class="icon-bulb"></i><span class="small-title">上线时间</span><span class="small-value ng-binding">100%</span></div>
+			</div>
+			<div class="col-xs-4 stat-holder box">
+				<div class="uptime text-success"><i class="icon-network"></i><span class="small-title">网络ID</span><span class="small-value ng-binding">{{netVersion}}</span></div>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="row" style="margin-top:15px; margin-left:15px; margin-right:15px">
+		<div class="row second-row">
+			<div class="stat-holder box" style="float:left;width:49%; background:white">
+				<div class="page-latency text-success">
+					<i class="icon-block"></i>
+					<span class="text-info">Blocks</span>
+					<button class="btn" style="float:right; padding: 2px; background: transparent">
+					<a href="/#/blocks"></a><span class="small-value ng-binding">View All</span>
+					</button>
+				</div>
+			</div>
+			
+			<!-- <div style="width:10px; background:transparent"></div> -->
+			
+			<div class="stat-holder box" style="float:right;width:49%; background:white">
+				<div class="page-latency text-success">
+					<i class="icon-network"></i>
+					<span class="text-info">Transactions</span>
+					<button class="btn" style="float:right; padding: 2px; background: transparent">
+						<a href="/#/allTransactions"></a><span class="small-value ng-binding">View All</span>
+						</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left; width:49%; background:white">
+		<tbody>
+			<tr>
+				<th>Block#</th>
+				<th>Tx#</th>
+				<th>Size</th>
+				<th>Timestamp</th>
+			</tr>
+			<tr data-ng-repeat="i in blocks">
+				<td><a href="/#/block/{{i.number}}">{{i.number}}</a></td>
+				<td>{{i.transactions.length}}</td>
+				<td>{{i.size}}</td>
+				<td>{{i.switchedtimestamp}} ago</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	<table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:right; width:49%;background:white;table-layout:fixed">
+		<tbody>
+			<tr>
+				<th class="th-value">TxHash</th>
+				<th class="th-value">From</th>
+				<th class="th-value">To</th>
+				<th class="th-value">Value(ETH)</th>
+			</tr>
+			<tr data-ng-repeat="tx in transactions">
+				<td style="overflow: hidden;text-overflow:ellipsis">
+					<a href="./#/transaction/{{tx.hash}}">
+							<span class="small ng-binding">{{tx.hash}}
+								</span>
+							</a>
+				</td>
+				<td style="overflow: hidden;text-overflow:ellipsis">
+					<a href="./#/address/{{tx.from}}">
+							<span class="small ng-binding">{{tx.from}}
+								</span>
+							</a>
+				</td>
+				<td style="overflow: hidden;text-overflow:ellipsis">
+					<a href="./#/address/{{tx.to}}">
+							<span class="small ng-binding">{{tx.to}}
+								</span>
+							</a>
+				</td>
+				<td><span class="small ng-binding">{{tx.value}}</span></td>
+			</tr>
+
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,37 @@
+<div id="tokens" class="container" style="padding-top: 50px; background:#f0f0f0">
+
+	<h3 class="text-gray" style="text-align:left;">{{title}}</h3>
+
+	<table ng-show="tokensIsShow" class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:5px;table-layout:fixed">
+		<tbody>
+			<tr>
+				<th>Token Information</th>
+				<th>Price</th>
+				<th>%Change</th>
+				<th>MarketCap</th>
+				<!-- <th>Timestamp</th> -->
+			</tr>
+			<tr data-ng-repeat="info in tokeninfos">
+				<td style="overflow: hidden;text-overflow:ellipsis"><a href="./#/tokens/{{info.address}}">{{info.name}}</a></td>
+				<td style="overflow: hidden;text-overflow:ellipsis">{{info.price}}</td>
+				<td style="overflow: hidden;text-overflow:ellipsis">{{info.change}}</td>
+				<td style="overflow: hidden;text-overflow:ellipsis">{{info.marketcap}}</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	<table ng-show="othersIsShow" class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:5px;table-layout:fixed">
+		<tbody>
+			<tr>
+				<th>Name</th>
+				<th>Constructor Information</th>
+			</tr>
+			<tr data-ng-repeat="info in simpleinfos">
+				<td style="overflow: hidden;text-overflow:ellipsis"><a href="./#/simplecontracts/{{info.address}}">{{info.name}}</a></td>
+				<td style="overflow: hidden;text-overflow:ellipsis">{{info.constructor}}</td>
+			</tr>
+
+		</tbody>
+	</table>
+</div>

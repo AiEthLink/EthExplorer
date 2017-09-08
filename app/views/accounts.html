@@ -1,0 +1,33 @@
+<div id="accountslist" class="container" style="padding-top: 50px; background:#f0f0f0">
+
+	<h3 class="text-gray" style="text-align:left;">{{accountType}}</h3>
+
+	<div class="container">
+		<div style="float:left;">
+			<h4 style="text-align:left">A total Of {{addresscount}} addresses found
+			<h5 style="text-align:left"><i> Displaying the last 10000 records only</i>
+			</h5>
+			</h4>
+		</div>
+
+	</div>
+	<div style="clear:both;"></div>
+
+	<table class="table table-striped" cellpadding="0" cellspacing="0" style="padding:0px;float:left;margin:5px;table-layout:fixed">
+		<tbody>
+			<tr>
+				<th>Address</th>
+				<th>Balance</th>
+				<th>TxCount</th>
+				<!-- <th>Timestamp</th> -->
+			</tr>
+			<tr data-ng-repeat="addr in addresses">
+				<td style="overflow: hidden;text-overflow:ellipsis"><a href="./#/address/{{addr.hash}}">{{addr.hash}}</a></td>
+				<td style="overflow: hidden;text-overflow:ellipsis">{{addr.balance}}</td>
+				<td style="overflow: hidden;text-overflow:ellipsis">{{addr.txcount}}</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+</div>
