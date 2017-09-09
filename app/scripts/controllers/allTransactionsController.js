@@ -42,7 +42,8 @@ angular.module('ethExplorer')
                                 to: result.to,
                                 gas: result.gas,
                                 input: result.input,
-                                value: (parseInt(result.value)/1000000000000000000)
+                                value: result.value,
+                                valueeth: (parseInt(result.value)/1000000000000000000)
                             }
 
                             $scope.$apply(
