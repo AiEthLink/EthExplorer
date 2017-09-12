@@ -44,7 +44,8 @@ angular.module('ethExplorer')
 
         $scope.transactions = []//localStorage.getObjectLocalStorage("transactions")
         var transactions = localStorage.getObjectLocalStorage("transactions")
-        for (var index = 0; index < maxBlocks; index++) {
+        maxindex = Math.min(transactions.length, maxBlocks) 
+        for (var index = 0; index < maxindex; index++) {
             var element = transactions[index];
 
             $scope.transactions.push(element)
@@ -89,30 +90,4 @@ angular.module('ethExplorer')
             }
             return time;
         }
-        // $scope.firstBlocks = function () {
-        //     pageNum = 0;
-        //     localStorage.setLocalStorage("pageNum", pageNum);
-        //     window.location.reload();
-        // };
-        // $scope.peviousBlocks = function () {
-        //     pageNum--;
-        //     if (pageNum < 0) {
-        //         pageNum = 0;
-        //     }
-        //     localStorage.setLocalStorage("pageNum", pageNum);
-        //     window.location.reload();
-        // };
-        // $scope.nextBlocks = function () {
-        //     pageNum++;
-        //     if (pageNum > blockNum / maxBlocks + 1) {
-        //         return;
-        //     }
-        //     localStorage.setLocalStorage("pageNum", pageNum);
-        //     window.location.reload();
-        // };
-        // $scope.lastBlocks = function () {
-        //     pageNum = blockNum / maxBlocks;
-        //     localStorage.setLocalStorage("pageNum", pageNum);
-        //     window.location.reload();
-        // };
     });
