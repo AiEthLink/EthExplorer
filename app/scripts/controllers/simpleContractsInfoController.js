@@ -2,12 +2,18 @@ angular.module('ethExplorer')
     .controller('simpleContractsInfoCtrl', function ($rootScope, $scope, $routeParams, $q, localStorage, localweb3) {
         var web3 = $rootScope.web3;
         $scope.contractaddress = $routeParams.addressId;
+        $scope.transactions = []
 
         var abi = $scope.abi = localStorage.getObjectLocalStorage($scope.contractaddress)
-
         var contract = web3.eth.contract(abi).at($scope.contractaddress);
-
-        $scope.transactions = []
+        $scope.contractname = contract.name()
+        for (var index = 0; index < abi.length; index++) {
+            var element = abi[index];
+            if (element.type == "function") {
+                console.log("function name: " + element.name)
+                console.log("function inputs: " + element.input)
+            }
+        }
 
         var contractTxs = []
         var transactions = localStorage.getObjectLocalStorage("transactions")
@@ -19,17 +25,19 @@ angular.module('ethExplorer')
             }
         }
 
+        $scope.transfersnum = contractTxs.length
         var index = 0;
-        var iCount = setInterval(function () {
-            getTxTo(contractTxs[index].hash);
-
-            index++;
-            if (index == contractTxs.length) {
-                clearInterval(iCount)
-                $scope.transfersnum = contractTxs.length
-                $scope.$apply()
-            }
-        }, 0);
+        if (contractTxs.length > 0) {
+            var iCount = setInterval(function () {
+                getTxTo(contractTxs[index].hash);
+    
+                index++;
+                if (index == contractTxs.length) {
+                    clearInterval(iCount)
+                    $scope.$apply()
+                }
+            }, 0);    
+        }
 
         function getTxTo(hash) {
             var deferred = $q.defer();
