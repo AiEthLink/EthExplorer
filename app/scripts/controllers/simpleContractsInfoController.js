@@ -7,11 +7,23 @@ angular.module('ethExplorer')
         var abi = $scope.abi = localStorage.getObjectLocalStorage($scope.contractaddress)
         var contract = web3.eth.contract(abi).at($scope.contractaddress);
         $scope.contractname = contract.name()
+        // {"constant":false,"inputs":[{"name":"channelId","type":"bytes32"}],
+        // "name":"deposit","outputs":[],"payable":true,"type":"function"}
         for (var index = 0; index < abi.length; index++) {
             var element = abi[index];
             if (element.type == "function") {
                 console.log("function name: " + element.name)
-                console.log("function inputs: " + element.input)
+                if (element.constant == true && element.inputs.length == 0) {
+                    if (element.inputs.length == 0) {
+                        var s = 'contract.' + element.name + '()'
+                        element.value = eval(s)
+                        console.log("element value: " + element.value)
+                    } else {
+                        element.constant = false
+                    }
+                }
+            } else if (element.type == "event" || element.type == "constructor") {
+                abi.splice(index)
             }
         }
 
@@ -30,15 +42,37 @@ angular.module('ethExplorer')
         if (contractTxs.length > 0) {
             var iCount = setInterval(function () {
                 getTxTo(contractTxs[index].hash);
-    
+
                 index++;
                 if (index == contractTxs.length) {
                     clearInterval(iCount)
                     $scope.$apply()
                 }
-            }, 0);    
+            }, 0);
         }
 
+        $scope.execute = function (index) {
+            var element = $scope.abi[index]
+            var inputs = element.inputs
+            var s = 'contract.' + element.name + '('
+            for (var index = 0; index < inputs.length; index++) {
+                var input = inputs[index];
+                if (index == 0) {
+                    s += '"' + input.value + '"'
+                } else {
+                    s += ',' + '"' + input.value + '"'
+                }
+            }
+            if (element.constant == true) {
+                s += ')'
+            } else {
+                var from = '{from:' + '"' + web3.eth.accounts[0] + '"' + ', gas:' + 100000 + '}'
+                s += ',' + from + ')'
+            }
+            console.log("function execute s: " + s)
+            element.value = eval(s)
+            console.log("element value: " + element.value)
+        }
         function getTxTo(hash) {
             var deferred = $q.defer();
             localweb3.getTransactionInfos(web3, deferred, hash)

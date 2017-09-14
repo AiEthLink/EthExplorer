@@ -55,6 +55,9 @@ angular.module('ethExplorer')
                         if (element.type == "constructor") {
                             console.log("element input: " + element.inputs)
                             addSimpleInfo($scope.simpleinfos, contract, address, element.inputs)
+                            if (contract.totalSupply()) {
+                                $scope.simpleinfos.splice($scope.simpleinfos.length-1)
+                            }
                         }
                     }, this);
                 }

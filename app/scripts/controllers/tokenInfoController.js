@@ -16,23 +16,40 @@ angular.module('ethExplorer')
         $scope.tokensymbol = token.symbol()
         $scope.tokentotalsupply = token.totalSupply()
 
+        for (var index = 0; index < abi.length; index++) {
+            var element = abi[index];
+            if (element.type == "function") {
+                // console.log("function name: " + element.name)
+                if (element.constant == true) {
+                    if (element.inputs.length == 0) {
+                        var s = 'token.' + element.name + '()'
+                        element.value = eval(s)
+                        // console.log("element value: " + element.value)
+                    } else {
+                        element.constant = false
+                    }
+                }
+            } else if (element.type == "event" || element.type == "constructor") {
+                abi.splice(index)
+            }
+        }
         // token.transfer('0x657c76a59601eabE5630a54A49Fd39Aa3578882f', 2, {
         //     from: web3.eth.accounts[1],
         //     gas: 1000000
         // })
-        token.balanceOf('0xD7Cb1BC65cC2ad64a996ED5Ce886Eb982789b68B',
-            function (e, result) {
-                console.log("token balanceOf1111: " + result);
-            })
+        // token.balanceOf('0xD7Cb1BC65cC2ad64a996ED5Ce886Eb982789b68B',
+        //     function (e, result) {
+        //         console.log("token balanceOf1111: " + result);
+        //     })
 
 
         /* Hello word*/
-        var abiCompiled = [ { "constant": false, "inputs": [], "name": "kill", "outputs": [], "type": "function" }, { "constant": false, "inputs": [ { "name": "_newgreeting", "type": "string" } ], "name": "setGreeting", "outputs": [], "type": "function" }, { "constant": true, "inputs": [], "name": "greet", "outputs": [ { "name": "", "type": "string", "value": "11111" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "greeting", "outputs": [ { "name": "", "type": "string", "value": "11111" } ], "type": "function" }, { "inputs": [ { "name": "_greeting", "type": "string" } ], "type": "constructor" } ];
-        var contract = web3.eth.contract(abiCompiled).at("0x2d243F2F12ea6E22f144B13A8F66EdC46A5DC183");
+        // var abiCompiled = [ { "constant": false, "inputs": [], "name": "kill", "outputs": [], "type": "function" }, { "constant": false, "inputs": [ { "name": "_newgreeting", "type": "string" } ], "name": "setGreeting", "outputs": [], "type": "function" }, { "constant": true, "inputs": [], "name": "greet", "outputs": [ { "name": "", "type": "string", "value": "11111" } ], "type": "function" }, { "constant": true, "inputs": [], "name": "greeting", "outputs": [ { "name": "", "type": "string", "value": "11111" } ], "type": "function" }, { "inputs": [ { "name": "_greeting", "type": "string" } ], "type": "constructor" } ];
+        // var contract = web3.eth.contract(abiCompiled).at("0x2d243F2F12ea6E22f144B13A8F66EdC46A5DC183");
 
         // contract.setGreeting("zhangqiang", {from: web3.eth.accounts[0], gas: 100000})
-        result = contract.greeting();
-        console.log("contract greeting: " + result)
+        // result = contract.greeting();
+        // console.log("contract greeting: " + result)
         /* End hello word */
 
         $scope.transactions = []
@@ -60,6 +77,29 @@ angular.module('ethExplorer')
                 $scope.$apply()
             }
         }, 0);
+
+        $scope.execute = function (index) {
+            var element = $scope.abi[index]
+            var inputs = element.inputs
+            var s = 'token.' + element.name + '('
+            for (var index = 0; index < inputs.length; index++) {
+                var input = inputs[index];
+                if (index == 0) {
+                    s += '"' + input.value + '"'
+                } else {
+                    s += ',' + '"' + input.value + '"'
+                }
+            }
+            if (element.constant == true) {
+                s += ')'
+            } else {
+                var from = '{from:' + '"' + web3.eth.accounts[0] + '"' + ', gas:' +100000 +'}'
+                s += ',' + from + ')'
+            }
+            // console.log("function execute s: " + s)
+            element.value = eval(s)
+            // console.log("element value: " + element.value)
+        }
 
         function getTxTo(hash) {
             var deferred = $q.defer();
@@ -92,17 +132,18 @@ angular.module('ethExplorer')
 
         }
         function getHolders(index) {
+            console.log("getHolders index: " + index)
             var tx = $scope.transactions[index];
-            if (check(tx.from) == false) {
-                token.balanceOf(tx.from,
-                    function (e, result) {
-                        addHolder(tx.from, result)
-                    })
-            }
             if (check(tx.to) == false) {
                 token.balanceOf(tx.to,
                     function (e, result) {
                         addHolder(tx.to, result)
+                    })
+            }
+            if (check(tx.from) == false) {
+                token.balanceOf(tx.from,
+                    function (e, result) {
+                        addHolder(tx.from, result)
                     })
             }
         }
@@ -110,6 +151,7 @@ angular.module('ethExplorer')
             var holders = $scope.holders
             for (var index = 0; index < holders.length; index++) {
                 if (address == holders[index].address) {
+                    console.log("address: " + address)
                     console.log("This address is in holders!!!")
                     return true
                 }
@@ -133,7 +175,7 @@ angular.module('ethExplorer')
                 if (balance > $scope.holders[index].quantity) {
                     console.log("addHolder index:" + index + " balance:" + balance)
                     
-                    $scope.$apply($scope.holders.splice(index, 1, holder))
+                    $scope.$apply($scope.holders.splice(index, 0, holder))
                     return
                 }
             }
